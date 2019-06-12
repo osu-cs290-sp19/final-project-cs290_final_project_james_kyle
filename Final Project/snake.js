@@ -1,6 +1,9 @@
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
 
+var count = 0;
+var score = 0;
+
 var snake = {
     x: 200,
     y: 200,
@@ -10,18 +13,29 @@ var snake = {
     numCells: 3
 };
 
-var count = 0;
-
-var score = 0;
-
 var food = {
     x: 400,
     y: 400
 };
 
-function getRandom(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
+document.addEventListener('keydown', function(e) {
+    if (e.which == 37 && snake.dx == 0) {
+        snake.dx = -20;
+        snake.dy = 0;
+    }
+    else if (e.which == 38 && snake.dy == 0) {
+        snake.dy = -20;
+        snake.dx = 0;
+    }
+    else if (e.which == 39 && snake.dx == 0) {
+        snake.dx = 20;
+        snake.dy = 0;
+    }
+    else if (e.which == 40 && snake.dy == 0) {
+        snake.dy = 20;
+        snake.dx = 0;
+    }
+});
 
 function getScore() {
     document.getElementById('score').innerText = score;
@@ -57,7 +71,7 @@ function animate() {
     }
     snake.cells.unshift({x: snake.x, y: snake.y});
 
-    if (snake.cells.length > snake.numCells) {
+    if (snake.numCells < snake.cells.length) {
         snake.cells.pop();
     }
 
@@ -70,14 +84,15 @@ function animate() {
         if (cell.x == food.x && cell.y == food.y) {
             snake.numCells += 1;
 
-            food.x = getRandom(0, 25) * 20;
-            food.y = getRandom(0, 25) * 20;
+            food.x = Math.floor(Math.random() * 25) * 20;
+            food.y = Math.floor(Math.random() * 25) * 20;
 
             score += 1;
         }
 
         for (var i = idx + 1; i < snake.cells.length; i++) {
             if (cell.x == snake.cells[i].x && cell.y == snake.cells[i].y) {
+                alert('GAME OVER\nScore:' + score);
                 snake.x = 200;
                 snake.y = 200;
                 snake.cells = [];
@@ -86,30 +101,11 @@ function animate() {
                 snake.dy = 0;
                 score = 0;
 
-                food.x = getRandom(0, 25) * 20;
-                food.y = getRandom(0, 25) * 20;
+                food.x = Math.floor(Math.random() * 25) * 20;
+                food.y = Math.floor(Math.random() * 25) * 20;
             }
         }
     });
 }
-
-document.addEventListener('keydown', function(e) {
-    if (e.which == 37 && snake.dx == 0) {
-        snake.dx = -20;
-        snake.dy = 0;
-    }
-    else if (e.which == 38 && snake.dy == 0) {
-        snake.dy = -20;
-        snake.dx = 0;
-    }
-    else if (e.which == 39 && snake.dx == 0) {
-        snake.dx = 20;
-        snake.dy = 0;
-    }
-    else if (e.which == 40 && snake.dy == 0) {
-        snake.dy = 20;
-        snake.dx = 0;
-    }
-});
 
 requestAnimationFrame(animate);
