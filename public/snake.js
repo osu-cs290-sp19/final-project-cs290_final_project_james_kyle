@@ -63,9 +63,109 @@ function drawHighScores() {
     document.getElementById('score_ten').innerText = highscores.k;
 }
 
+function updateHighScores() {
+    if (score > highscores.k) {
+        if (score > highscores.j) {
+            if (score > highscores.i) {
+                if (score > highscores.h) {
+                    if (score > highscores.g) {
+                        if (score > highscores.f) {
+                            if (score > highscores.e) {
+                                if (score > highscores.d) {
+                                    if (score > highscores.c) {
+                                        if (score > highscores.b) {
+                                            highscores.k = highscores.j;
+                                            highscores.j = highscores.i;
+                                            highscores.i = highscores.h;
+                                            highscores.h = highscores.g;
+                                            highscores.g = highscores.f;
+                                            highscores.f = highscores.e;
+                                            highscores.e = highscores.d;
+                                            highscores.d = highscores.c;
+                                            highscores.c = highscores.b;
+                                            highscores.b = score;
+                                        }
+                                        else {
+                                            highscores.k = highscores.j;
+                                            highscores.j = highscores.i;
+                                            highscores.i = highscores.h;
+                                            highscores.h = highscores.g;
+                                            highscores.g = highscores.f;
+                                            highscores.f = highscores.e;
+                                            highscores.e = highscores.d;
+                                            highscores.d = highscores.c;
+                                            highscores.c = score;
+                                        }
+                                    }
+                                    else {
+                                        highscores.k = highscores.j;
+                                        highscores.j = highscores.i;
+                                        highscores.i = highscores.h;
+                                        highscores.h = highscores.g;
+                                        highscores.g = highscores.f;
+                                        highscores.f = highscores.e;
+                                        highscores.e = highscores.d;
+                                        highscores.d = score;
+                                    }
+                                }
+                                else {
+                                    highscores.k = highscores.j;
+                                    highscores.j = highscores.i;
+                                    highscores.i = highscores.h;
+                                    highscores.h = highscores.g;
+                                    highscores.g = highscores.f;
+                                    highscores.f = highscores.e;
+                                    highscores.e = score;
+                                }
+                            }
+                            else {
+                                highscores.k = highscores.j;
+                                highscores.j = highscores.i;
+                                highscores.i = highscores.h;
+                                highscores.h = highscores.g;
+                                highscores.g = highscores.f;
+                                highscores.f = score;
+                            }
+                        }
+                        else {
+                            highscores.k = highscores.j;
+                            highscores.j = highscores.i;
+                            highscores.i = highscores.h;
+                            highscores.h = highscores.g;
+                            highscores.g = score;
+                        }
+                    }
+                    else {
+                        highscores.k = highscores.j;
+                        highscores.j = highscores.i;
+                        highscores.i = highscores.h;
+                        highscores.h = score;
+                    }
+                }
+                else {
+                    highscores.k = highscores.j;
+                    highscores.j = highscores.i;
+                    highscores.i = score;
+                }
+            }
+            else {
+                highscores.k = highscores.j;
+                highscores.j = score;
+            }
+        }
+        else {
+            highscores.k = score;
+        }
+    }
+}
+
 function getScore() {
     document.getElementById('score').innerText = score;
 }
+
+const backgroundGradient = c.createLinearGradient(0, 0, 0, canvas.height);
+backgroundGradient.addColorStop(0, '#171E26');
+backgroundGradient.addColorStop(1, '#3F586B');
 
 function animate() {
     requestAnimationFrame(animate);
@@ -76,7 +176,8 @@ function animate() {
     }
     count = 0;
 
-    c.clearRect(0, 0, 500, 500);
+    c.fillStyle = backgroundGradient;
+    c.fillRect(0, 0, 500, 500);
 
     getScore();
 
@@ -119,6 +220,8 @@ function animate() {
         for (var i = idx + 1; i < snake.cells.length; i++) {
             if (cell.x == snake.cells[i].x && cell.y == snake.cells[i].y) {
                 alert('GAME OVER\nScore:' + score);
+                updateHighScores();
+                drawHighScores();
                 snake.x = 200;
                 snake.y = 200;
                 snake.cells = [];
