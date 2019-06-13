@@ -1,6 +1,19 @@
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
 
+var highscores = {
+    b: 0,
+    c: 0,
+    d: 0,
+    e: 0,
+    f: 0,
+    g: 0,
+    h: 0,
+    i: 0,
+    j: 0,
+    k: 0
+};
+
 var count = 0;
 var score = 0;
 
@@ -36,6 +49,19 @@ document.addEventListener('keydown', function(e) {
         snake.dx = 0;
     }
 });
+
+function drawHighScores() {
+    document.getElementById('score_one').innerText = highscores.b;
+    document.getElementById('score_two').innerText = highscores.c;
+    document.getElementById('score_three').innerText = highscores.d;
+    document.getElementById('score_four').innerText = highscores.e;
+    document.getElementById('score_five').innerText = highscores.f;
+    document.getElementById('score_six').innerText = highscores.g;
+    document.getElementById('score_seven').innerText = highscores.h;
+    document.getElementById('score_eight').innerText = highscores.i;
+    document.getElementById('score_nine').innerText = highscores.j;
+    document.getElementById('score_ten').innerText = highscores.k;
+}
 
 function getScore() {
     document.getElementById('score').innerText = score;
@@ -108,4 +134,5 @@ function animate() {
     });
 }
 
+drawHighScores();
 requestAnimationFrame(animate);
